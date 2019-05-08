@@ -1,0 +1,6 @@
+version: "3"
+
+services:
+  public_audio:
+    labels:
+      - "traefik.frontend.rule=Host:pa.localhost"

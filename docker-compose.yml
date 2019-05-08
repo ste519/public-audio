@@ -1,0 +1,26 @@
+version: "3"
+
+networks:
+  traefik:
+    external: true
+  internal:
+    external: false
+
+services:
+  public_audio:
+    image: node:carbon
+    command: bash -c "npm install && node node_modules/gulp/bin/gulp.js serve"
+    working_dir: "/home/node"
+    volumes:
+      - './:/home/node/'
+    networks:
+      - traefik
+      - internal
+    labels:
+      - "traefik.backend=public_audio"
+      - "traefik.docker.network=traefik"
+      - "traefik.enable=true"
+      - "traefik.port=9000"
+    environment:
+      HOST: 0.0.0.0
+      PORT: 9000
