@@ -1,21 +1,21 @@
-# public-audio
+# ☭ public-audio
 
 The [Node.js](https://nodejs.org) based red brazilian crawler idealized by [MatGuzzo](http://lattes.cnpq.br/6679644870926297).
 
-## dev status
+---
+# ☭ Project File Structure
+    .
+    ├── config/urls    # newspaper websites to be crawled
+    ├── src/crawler    # built with [promise-crawler](https://www.npmjs.com/package/promise-crawler)
+    └── parser         # individual parsing strategies built with [cheerio](https://www.npmjs.com/package/cheerio)
 
-| website       | links | images |
-|---------------|-------|--------|
-| j-livres   |  ✅   | ✅ |
-| m-ninja   |  ✅   | ✅  |
-| obs-imp   |  ✅   | they don't really display imgs  |
-| dcm   |  ✅   | ✅  |
-| intercept   |  ✅   | ✅ |
+# ☭ Demonstration
 
-## demo
+You can see it running [here](https://pa.txto.com.br)
 
-see it running [here](https://pa.txto.com.br)
+# ☭ To-Do
 
-## development info
-
-to-do
+☭ crawl everything with a single request
+☭ setup pre-commit linting
+☭ create unitary tests
+☭ improve error handling
