@@ -3,37 +3,20 @@ const Crawler = require('promise-crawler')
 var PACrawler = function() {
   this.crawler = new Crawler({
     maxConnections: 10,
-    // callback called for each crawled page
-    callback: function (error, res, done) {
-      if (error) {
-        console.log(error)
-        throw error
-      } else {
-        done()
-      }
-    }
+    retries: 3
   })
 }
 
-PACrawler.prototype.grabLinks = async function(url) {
+PACrawler.prototype.grabLinks = async function(link) {
   // setup and request
   await this.crawler.setup()
-  let ret = await this.crawler.request({ url: url })
-
-  // server side response parsing using cheerio
-  let $ = ret.$
-  let urls = $('a')
-
-  let arr = []
-  for (var i = 0; i < urls.length; i++) {
-    if (urls[i].attribs.href && urls[i].attribs.title && !urls[i].attribs.class) {
-      arr.push(urls[i].attribs)
-    }
-  }
+  let ret = await this.crawler.request({ url: link.url })
 
   if (ret.statusCode === 403) {
     return '403 forbidden :('
   } else {
+    let parser = require(`../parser/${link.path}`)
+    let arr = parser.parse(ret)
     return JSON.stringify(arr, null, '<br>')
   }
 

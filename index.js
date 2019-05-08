@@ -24,7 +24,7 @@ app.get('/', (req, res) => { res.send(menu) })
 urls.forEach(link => {
   app.get(link.path, async (req, res) => {
     console.log(link.path + ' request')
-    let linkList = await crawler.grabLinks(link.url)
+    let linkList = await crawler.grabLinks(link)
     res.send(menu + linkList)
     console.log('handled!')
   })
