@@ -2,7 +2,7 @@ module.exports = {
   parse (ret) {
     let $ = ret.$
     let urls = $('a')
-    let high = $('div[class=\"boxMancheteHome\"]')
+    let high = $('div[class="boxMancheteHome"]')
     let highlight = {
       title: high[0].children[0].children[0].data,
       href: high[0].children[0].next.children[0].children[0].attribs.href

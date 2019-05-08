@@ -1,5 +1,5 @@
 module.exports = {
-  parse(ret) {
+  parse (ret) {
     let $ = ret.$
     let urls = $('div[class="et_pb_image_container"]')
     let arr = []

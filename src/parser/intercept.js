@@ -1,10 +1,10 @@
 const URL = 'https://theintercept.com'
 
 module.exports = {
-  parse(ret) {
+  parse (ret) {
     let $ = ret.$
-    let titles = $('span[class=\"Promo-title-wrap\"]')
-    let urls = $('a[class=\"Promo-link\"]')
+    let titles = $('span[class="Promo-title-wrap"]')
+    let urls = $('a[class="Promo-link"]')
     let imgs = $('img[class="ResponsiveImage-image"]')
 
     let arr = []

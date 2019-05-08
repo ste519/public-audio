@@ -1,13 +1,13 @@
 const Crawler = require('promise-crawler')
 
-var PACrawler = function() {
+var PACrawler = function () {
   this.crawler = new Crawler({
     maxConnections: 10,
     retries: 3
   })
 }
 
-PACrawler.prototype.grabLinks = async function(link) {
+PACrawler.prototype.grabLinks = async function (link) {
   try {
     // setup and request
     await this.crawler.setup()
@@ -16,16 +16,20 @@ PACrawler.prototype.grabLinks = async function(link) {
     if (ret.statusCode === 403) {
       return '403 forbidden :('
     } else {
-      let parser = require(`../parser/${link.path}`)
-      let arr = parser.parse(ret)
-      return JSON.stringify(arr, null, '<br>')
+      try {
+        let parser = require(`../parser/${link.path}`)
+        let arr = parser.parse(ret)
+        return JSON.stringify(arr, null, '<br>')
+      } catch (error) {
+        return 'ERROR parsing: ' + error.message
+      }
     }
-
-    // destroy the instance
-    process.nextTick(() => this.crawler.destroy())
   } catch (error) {
     console.log(error)
     throw error
+  } finally {
+    // destroy the instance
+    process.nextTick(() => this.crawler.destroy())
   }
 }
 

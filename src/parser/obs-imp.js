@@ -1,7 +1,7 @@
 module.exports = {
-  parse(ret) {
+  parse (ret) {
     let $ = ret.$
-    let high = $('h1[class=\"titulo\"]')
+    let high = $('h1[class="titulo"]')
     let urls = $('h2')
     high = high[0].children[0]
 
