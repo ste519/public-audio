@@ -5,11 +5,16 @@ module.exports = {
     let $ = ret.$
     let titles = $('span[class=\"Promo-title-wrap\"]')
     let urls = $('a[class=\"Promo-link\"]')
+    let imgs = $('img[class="ResponsiveImage-image"]')
 
-    // TODO: map imgs
     let arr = []
     for (var i = 0; i < urls.length; i++) {
-      arr.push(`<a href=${URL + urls[i].attribs.href}>link</a> ${titles[i].children[0].data}`)
+      let news = {
+        href: URL + urls[i].attribs.href,
+        title: titles[i].children[0].data,
+        img: imgs[i].attribs.src
+      }
+      arr.push(`<a href=${news.href}>link</a> <a href=${news.img}>img</a> ${news.title}`)
     }
     return arr
   }

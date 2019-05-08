@@ -6,11 +6,11 @@ The [Node.js](https://nodejs.org) based red brazilian crawler idealized by [MatG
 
 | website       | links | images |
 |---------------|-------|--------|
-| j-livres   |  ✅   | ❌  |
-| m-ninja   |  ✅   | ❌  |
-| obs-imp   |  ✅   | ❌  |
+| j-livres   |  ✅   | ✅ |
+| m-ninja   |  ✅   | ✅  |
+| obs-imp   |  ✅   | they don't really display imgs  |
 | dcm   |  ✅   | ✅  |
-| intercept   |  ✅   | ❌  |
+| intercept   |  ✅   | ✅ |
 
 ## demo
 

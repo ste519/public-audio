@@ -5,7 +5,6 @@ module.exports = {
     let urls = $('h2')
     high = high[0].children[0]
 
-    // TODO: grab and map imgs
     let arr = []
     arr.push(`<a href=${high.attribs.href}>link</a> ${high.children[0].data}`)
     for (var i = 0; i < urls.length; i++) {

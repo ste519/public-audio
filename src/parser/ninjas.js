@@ -1,16 +1,19 @@
 module.exports = {
   parse(ret) {
     let $ = ret.$
-    let urls = $('a')
-    // TODO: grab and map imgs
+    let urls = $('div[class="et_pb_image_container"]')
     let arr = []
+
     for (var i = 0; i < urls.length; i++) {
-      if (urls[i].attribs.href &&
-        urls[i].children[0].data.length > 15) { // pretty ugly workaround
-        console.log(urls[i])
-        arr.push(`<a href=${urls[i].attribs.href}>link</a> ${urls[i].children[0].data}`)
+      let news = {
+        href: urls[i].children[0].next.attribs.href,
+        title: urls[i].children[1].children[1].attribs.alt,
+        img: urls[i].children[1].children[1].attribs.src
       }
+
+      arr.push(`<a href=${news.href}>link</a> <a href=${news.img}>img</a> ${news.title}`)
     }
+
     return arr
   }
 }
