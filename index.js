@@ -25,10 +25,32 @@ urls.forEach(link => {
   app.get(link.path, async (req, res) => {
     console.log(link.path + ' request')
     let linkList = await crawler.grabLinks(link)
-    res.send(menu + linkList)
+    let humanReadable = []
+    linkList.forEach(link => {
+      let img = link.img ? `<a href=${link.img}>[img]</a> ` : ''
+      humanReadable.push(`${img}<a href=${link.href}>${link.title}</a>`)
+    })
+    res.send(menu + JSON.stringify(humanReadable, null, '<br>'))
     console.log('handled!')
   })
 })
+
+app.get('/list', async (req, res) => {
+  let map = urls.map(listAll)
+  let data = await Promise.all(map)
+  res.send(JSON.stringify(data, 3, 3))
+})
+
+async function listAll (link) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      let linkNews = await crawler.grabLinks(link)
+      resolve(linkNews)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
 
 // export app for eventually do tests
 module.exports = app

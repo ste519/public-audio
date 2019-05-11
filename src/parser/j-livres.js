@@ -8,14 +8,16 @@ module.exports = {
     let jumpFeatured = $('div[class="jumping-posts-image"]')
     let errorCounter = 0
     let allNews = []
+    let link = ''
 
     for (var i = 0; i < bottomNews.length; i++) {
       try {
+        link = bottomNews[i].children[1]
         allNews.push({
-          href: bottomNews[i].children[1].attribs.href,
-          title: bottomNews[i].children[1].attribs.title,
-          img: bottomNews[i].children[1].children[1]
-            ? bottomNews[i].children[1].children[1].attribs['data-cfsrc']
+          href: link.attribs.href,
+          title: link.attribs.title,
+          img: link.children[1]
+            ? link.children[1].attribs['data-cfsrc']
             : undefined
         })
       } catch (error) {
@@ -26,10 +28,13 @@ module.exports = {
 
     for (i = 0; i < topNews.length; i++) {
       try {
+        link = topNews[i].children[0].next
         allNews.push({
-          href: topNews[i].children[0].next.attribs.href,
-          title: topNews[i].children[0].next.attribs.title,
-          img: topNews[i].children[0].next.children[0].next.attribs['data-cfsrc'] || undefined
+          href: link.attribs.href,
+          title: link.attribs.title,
+          img: link.children[0] && link.children[0].next
+            ? link.children[0].next.attribs['data-cfsrc']
+            : undefined
         })
       } catch (error) {
         console.log('error ' + error.message)
@@ -39,9 +44,10 @@ module.exports = {
 
     for (i = 0; i < trending.length; i++) {
       try {
+        link = trending[i].children[2].next
         allNews.push({
-          href: trending[i].children[2].next.attribs.href,
-          title: trending[i].children[2].next.attribs.title
+          href: link.attribs.href,
+          title: link.attribs.title
         })
       } catch (error) {
         console.log('error ' + error.message)
@@ -51,10 +57,13 @@ module.exports = {
 
     for (i = 0; i < featured.length; i++) {
       try {
+        link = featured[i].children[1]
         allNews.push({
-          href: featured[i].children[1].attribs.href,
-          title: featured[i].children[1].attribs.title,
-          img: featured[i].children[1].children[1].attribs['data-cfsrc'] || undefined
+          href: link.attribs.href,
+          title: link.attribs.title,
+          img: link.children[1]
+            ? link.children[1].attribs['data-cfsrc']
+            : undefined
         })
       } catch (error) {
         console.log('error ' + error.message)
@@ -64,10 +73,13 @@ module.exports = {
 
     for (i = 0; i < jumpFeatured.length; i++) {
       try {
+        link = jumpFeatured[i].children[1]
         allNews.push({
-          href: jumpFeatured[i].children[1].attribs.href,
-          title: jumpFeatured[i].children[1].attribs.title,
-          img: jumpFeatured[i].children[1].children[1].attribs['data-cfsrc'] || undefined
+          href: link.attribs.href,
+          title: link.attribs.title,
+          img: link.children[1]
+            ? link.children[1].attribs['data-cfsrc']
+            : undefined
         })
       } catch (error) {
         console.log('error ' + error.message)
@@ -75,13 +87,7 @@ module.exports = {
       }
     }
 
-    let arr = []
-    allNews.forEach(news => {
-      news.img
-        ? arr.push(`<a href=${news.href}>link</a> <a href=${news.img}>img</a> ${news.title}`)
-        : arr.push(`<a href=${news.href}>link</a> ${news.title}`)
-    })
-    if (errorCounter) arr.push(`${errorCounter} parsing errors`)
-    return arr
+    if (errorCounter) console.log(`${errorCounter} parsing errors`)
+    return allNews
   }
 }

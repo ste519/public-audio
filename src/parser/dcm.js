@@ -23,9 +23,16 @@ module.exports = {
 
     // compose response
     let arr = []
-    arr.push(`<a href=${highlight.href}>link</a> ${highlight.title}`)
+    arr.push({
+      href: highlight.href,
+      title: highlight.title
+    })
     Object.keys(uniqueList).forEach((key, index) => {
-      arr.push(`<a href=${uniqueList[key].href}>link</a> <a href=${uniqueList[key].img || '#'}>img</a> ${key}`)
+      arr.push({
+        href: uniqueList[key].href,
+        title: key,
+        img: uniqueList[key].img
+      })
     })
     return arr
   }

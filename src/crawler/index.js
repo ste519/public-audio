@@ -14,14 +14,14 @@ PACrawler.prototype.grabLinks = async function (link) {
     let ret = await this.crawler.request({ url: link.url })
 
     if (ret.statusCode === 403) {
-      return '403 forbidden :('
+      return [{ title: '(403) forbidden' }]
     } else {
       try {
         let parser = require(`../parser/${link.path}`)
         let arr = parser.parse(ret)
-        return JSON.stringify(arr, null, '<br>')
+        return arr
       } catch (error) {
-        return 'ERROR parsing: ' + error.message
+        return [{ title: 'ERROR parsing: ' + error.message }]
       }
     }
   } catch (error) {

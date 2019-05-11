@@ -1,7 +1,7 @@
 # ☭ public-audio
 
 The [Node.js](https://nodejs.org) based red brazilian crawler idealized by [MatGuzzo](http://lattes.cnpq.br/6679644870926297).
-
+Built basicaly with node, express, promise-crawler and cheerio.
 ---
 # ☭ Project File Structure
     .
@@ -11,11 +11,13 @@ The [Node.js](https://nodejs.org) based red brazilian crawler idealized by [MatG
 
 # ☭ Demonstration
 
-You can see it running [here](https://pa.txto.com.br)
+Check [here](https://pa.txto.com.br) for human readable version, and [here](https://pa.txto.com.br) for
+the API.
 
 # ☭ To-Do
 
-☭ crawl everything with a single request
-☭ setup pre-commit linting
-☭ create unitary tests
-☭ improve error handling
+* ☭ ~~crawl everything with a single request~~
+* ☭ setup pre-commit linting
+* ☭ create unitary tests
+* ☭ improve error handling
+* ☭ add new websites

@@ -11,7 +11,7 @@ module.exports = {
         img: urls[i].children[1].children[1].attribs.src
       }
 
-      arr.push(`<a href=${news.href}>link</a> <a href=${news.img}>img</a> ${news.title}`)
+      arr.push(news)
     }
 
     return arr
