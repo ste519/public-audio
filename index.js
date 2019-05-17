@@ -7,6 +7,12 @@ const urls = require('./config/urls')
 const PACrawler = require('./src/crawler')
 const crawler = new PACrawler()
 
+//Setup db
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://ste519:123@cluster0-9uig7.mongodb.net/test?retryWrites=true";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+
+
 // quick and dirty menu
 let menu = '<div id="header">'
 urls.forEach(link => {
@@ -38,8 +44,28 @@ urls.forEach(link => {
 app.get('/list', async (req, res) => {
   let map = urls.map(listAll)
   let data = await Promise.all(map)
+  //console.log(data[0]);
+
+  client.connect(err => {
+    const collection = client.db("test").collection("rss");
+    for (doc of data) {
+      collection.insertMany(doc, function(err, res) {
+        if (err) throw err;
+        console.log("Document inserted");
+      });
+    }
+    client.close();
+  });
+
+  const spawn = require("child_process").spawn;
+  const process = spawn('python',["./src/ins_scraper.py"]);
+
+  process.stdout.on('data', data => {
+      console.log(data.toString());
+  })
+
   res.send(JSON.stringify(data, 3, 3))
-})
+});
 
 async function listAll (link) {
   return new Promise(async (resolve, reject) => {
