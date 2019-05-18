@@ -48,17 +48,24 @@ app.get('/list', async (req, res) => {
 
   client.connect(err => {
     const collection = client.db("test").collection("rss");
-    for (doc of data) {
-      collection.insertMany(doc, function(err, res) {
-        if (err) throw err;
-        console.log("Document inserted");
-      });
-    }
+    for (list of data) {
+      for (doc of list ) {
+      doc["_id"] = doc["href"];
+      delete doc["href"];
+      try {
+        collection.insertOne(doc, order=false, (err, res) => {
+        });
+      }
+      catch {
+        console.log("Error.")
+      }
+    }}
+
     client.close();
   });
 
   const spawn = require("child_process").spawn;
-  const process = spawn('python',["./src/ins_scraper.py"]);
+  const process = spawn('python',["./src/ins_scrapper.py"]);
 
   process.stdout.on('data', data => {
       console.log(data.toString());
